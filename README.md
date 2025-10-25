@@ -1328,6 +1328,14 @@ An interactive resume built entirely using **HTML and CSS** — featuring animat
 </video>
 ]()
 
+## <a id="night-fire-camp"></a>Night fire camp
+
+[<video height="230" width="230" controls> 
+<source src="images/nightfirecamp.mp4" type="video/mp4">
+</video>
+]()
+
+
 **[⬆ back to top](#quick-links)**
 
 ---
