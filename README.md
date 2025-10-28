@@ -84,6 +84,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Mobile Menu Off Canvas](#mobile-menu-off-canvas)
 - [Modal/Popup](#modalpopup)
 - [Mondrian Composition](#mondrian-composition)
+- [Morph Loader](#morph-loader)
 - [Mouse Tracking](#mouse-tracking)
 - [Multi Step Checkout](#multi-step-checkout)
 - [NavBar](#navbar)
@@ -484,6 +485,14 @@ Your browser does not support the video tag.
 
 [<img src="images/buttonHoverClick.gif" height="250" title="Demo">](https://codepen.io/harsharora1205/pen/oNKYaME)
 [<img src="images/ButtonNeon.gif" height="250" title="Demo">](https://codepen.io/sugeng-sulistiyawan/pen/eYPRpZN)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
+## <a id="morph-loader"></a>Morph Loader
+
+[<img src="images/morphLoader.gif" height="230" title="Morph Loader Demo">](./MorphLoader/index.html)
 
 **[⬆ back to top](#quick-links)**
 
