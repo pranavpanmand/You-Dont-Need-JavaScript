@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Time Travel Timeline</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=UnifrakturCook&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>🌌 Time Travel Timeline</header>
+
+  <!-- place radios as siblings of main so CSS sibling selectors can target main::before correctly -->
+  <input type="radio" name="era" id="ancient">
+  <input type="radio" name="era" id="medieval">
+  <input type="radio" name="era" id="modern">
+  <input type="radio" name="era" id="future">
+
+  <div class="timeline">
+    <label for="ancient"> Ancient</label>
+    <label for="medieval">⚔️ Medieval</label>
+    <label for="modern">🏙️ Modern</label>
+    <label for="future">🚀 Future</label>
+  </div>
+
+  <!-- transition overlay: shows animation (rocket/clock) when user switches eras -->
+  <div class="transition" aria-hidden="true">
+    <div class="overlay">
+      <div class="anim-wrap">
+        <div class="rocket" aria-hidden="true">
+          <div class="rocket-body">
+            <div class="rocket-fin rocket-fin-left"></div>
+            <div class="rocket-fin rocket-fin-right"></div>
+            <div class="rocket-window"></div>
+            <div class="rocket-exhaust"></div>
+          </div>
+        </div>
+
+        <div class="clock" aria-hidden="true">
+          <div class="clock-face">
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="era">
+    <div class="content">
+      <div class="era-media" aria-hidden="false">
+        <img id="img-ancient" src="ancient.png" alt="Ancient era visual">
+        <img id="img-medieval" src="medeival.png" alt="Medieval era visual">
+        <img id="img-modern" src="modern.png" alt="Modern era visual">
+        <img id="img-future" src="future.png" alt="Future era visual">
+      </div>
+
+      <div class="era-info">
+        <h1 class="era-title">Welcome, Time Traveler</h1>
+        <p class="era-desc">Choose an era to begin your journey.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>Made with 💫 pure CSS magic</footer>
+</body>
+</html>

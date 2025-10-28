@@ -118,6 +118,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [MakemyTrip](#mmt)
 - [Text Spoiler Effect](#text-spoiler)
 - [Timeline](#timeline)
+- [Time Travel](#time-travel)
 - [Thank You Animation](#thankyou-animation)
 - [Toast Notification](#toast-notifications)
 - [Todo List](#todo-list)
@@ -560,6 +561,16 @@ Your browser does not support the video tag.
 
 [<img src="images/tabs.png" height="230" title="Demo 1">](https://codepen.io/llgruff/pen/ZGBxOa)
 [<img src="images/tabs2.png" height="230" title="Demo 2">](https://codepen.io/fusco/pen/Wvzjrm)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
+## <a id="time-travel"></a>Time Travel
+
+[<img src="Time-Travel/preview.png" height="230" title="Time Travel">](Time-Travel/index.html)
+
+A pure CSS time travel timeline that allows you to explore different eras.
 
 **[⬆ back to top](#quick-links)**
 
