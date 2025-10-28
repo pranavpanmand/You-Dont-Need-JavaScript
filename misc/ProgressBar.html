@@ -1,229 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Glassmorphism Circle Progress</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@300;400;500;700;900&display=swap");
-      * {
-        margin: 0;
-        padding: 0;
-        font-family: "Roboto", sans-serif;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glassmorphism Skill Progress</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #001524, #00384d);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+    }
+
+    .card {
+      position: relative;
+      width: 250px;
+      height: 300px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .percent {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 50px auto 20px;
+    }
+
+    .percent svg {
+      width: 160px;
+      height: 160px;
+      transform: rotate(-90deg);
+      overflow: visible;
+    }
+
+    .percent circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+    }
+
+    .percent circle:first-child {
+      stroke: rgba(255, 255, 255, 0.15);
+    }
+
+    .percent circle:last-child {
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      transition: stroke-dashoffset 1s ease;
+      transform: translate(5px, 5px);
+    }
+
+    .card:hover circle:last-child {
+      stroke-dashoffset: 0;
+    }
+
+    .number {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .number h2 {
+      color: #fff;
+      font-size: 45px;
+    }
+
+    .number span {
+      font-size: 18px;
+      color: #aaa;
+    }
+
+    .text {
+      text-align: center;
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+
+    /* Gradient progress colors */
+    .card:nth-child(1) circle:last-child {
+      stroke: url(#grad1);
+      stroke-dashoffset: calc(440 - (440 * 95) / 100);
+    }
+
+    .card:nth-child(2) circle:last-child {
+      stroke: url(#grad2);
+      stroke-dashoffset: calc(440 - (440 * 85) / 100);
+    }
+
+    .card:nth-child(3) circle:last-child {
+      stroke: url(#grad3);
+      stroke-dashoffset: calc(440 - (440 * 78) / 100);
+    }
+
+    /* Gradient definitions */
+    svg defs linearGradient stop {
+      transition: all 0.4s ease;
+    }
+
+    @keyframes glow {
+      0% {
+        filter: drop-shadow(0 0 5px #fff);
       }
 
-      section {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 40px 0;
-        min-height: 100vh;
-        background: #001524;
+      100% {
+        filter: drop-shadow(0 0 20px #fff);
       }
+    }
 
-      section::before {
-        content: "";
-        position: absolute;
-        top: 45%;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        background: #186f65;
-      }
-      .container {
-        width: 900px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-      }
-      .container .card {
-        position: relative;
-        width: 250px;
-        height: 300px;
-        text-align: center;
-        z-index: 10;
-        margin: 20px 20px 60px;
-        transition: 0.5s;
-      }
-      .container .card .box {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.05);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        z-index: 10;
-        border-radius: 10px;
-      }
+    .card:hover .percent svg circle:last-child {
+      animation: glow 1s alternate infinite;
+    }
+  </style>
+</head>
 
-      .percent {
-        position: relative;
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        z-index: 100;
-      }
-      .percent .number {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .percent .number h2 {
-        color: #ccc8aa;
-        font-weight: 700;
-        font-size: 50px;
-      }
-
-      .percent .number h2:hover {
-        color: #fff;
-      }
-
-      .percent .number h2 span {
-        font-size: 24px;
-      }
-
-      .text {
-        position: absolute;
-        bottom: -42px;
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-        padding: 30px 20px 10px;
-        background: #f00;
-        border-radius: 10px;
-        font-weight: 800;
-        font-size: 18px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        pointer-events: none;
-        transition: bottom 0.5s, z-index 0s, transform 0.5s, padding 0.5s;
-        transition-delay: 0.5s, 0.5s, 0s, 0.5s;
-        color: #fff;
-      }
-
-      .card:hover .text {
-        transition-delay: 0s, 0.5s, 0.5s, 0s;
-        bottom: -70px;
-        z-index: 11;
-        transform: translateX(-50%) translateY(-50px);
-        padding: 10px 20px 10px;
-      }
-
-      .card:nth-child(1) .text {
-        background: linear-gradient(#e44c25, #f16529);
-      }
-
-      .card:nth-child(2) .text {
-        background: linear-gradient(#254ce4, #2a65f1);
-      }
-
-      .card:nth-child(3) .text {
-        background: linear-gradient(#e9c80f, #f7eb1e);
-      }
-
-      svg {
-        position: relative;
-        width: 150px;
-        height: 150px;
-      }
-
-      svg circle {
-        width: 100%;
-        height: 100%;
-        fill: none;
-        stroke-width: 10;
-        stroke: rgba(255, 255, 255, 0.05);
-        transform: translate(5px, 5px);
-        stroke-linecap: round;
-      }
-
-      svg circle:nth-child(2) {
-        stroke: #fff;
-        stroke-dasharray: 440px;
-        stroke-dashoffset: 770px;
-      }
-
-      .card:nth-child(1) svg circle:nth-child(2) {
-        stroke-dashoffset: calc(440px - (440px * 90) / 100);
-      }
-
-      .card:nth-child(2) svg circle:nth-child(2) {
-        stroke-dashoffset: calc(440px - (440px * 82) / 100);
-      }
-
-      .card:nth-child(3) svg circle:nth-child(3) {
-        stroke-dashoffset: calc(440px - (440px * 77) / 100);
-      }
-    </style>
-  </head>
-  <body>
-    <section>
-      <div class="container">
-        <div class="card">
-          <div class="box">
-            <div>
-              <div class="percent">
-                <svg>
-                  <circle cx="70" cy="70" r="70"></circle>
-                  <circle cx="70" cy="70" r="70"></circle>
-                </svg>
-                <div class="number">
-                  <h2>95<span>%</span></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text">Html</div>
-        </div>
-        <div class="card">
-          <div class="box">
-            <div>
-              <div class="percent">
-                <svg>
-                  <circle cx="70" cy="70" r="70"></circle>
-                  <circle cx="70" cy="70" r="70"></circle>
-                </svg>
-                <div class="number">
-                  <h2>82<span>%</span></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text">CSS</div>
-        </div>
-        <div class="card">
-          <div class="box">
-            <div>
-              <div class="percent">
-                <svg>
-                  <circle cx="70" cy="70" r="70"></circle>
-                  <circle cx="70" cy="70" r="70"></circle>
-                </svg>
-                <div class="number">
-                  <h2>77<span>%</span></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text">JavaScript</div>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="percent">
+        <svg viewBox="0 0 160 160">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#f12711" />
+              <stop offset="100%" stop-color="#f5af19" />
+            </linearGradient>
+          </defs>
+          <circle cx="80" cy="80" r="70"></circle>
+          <circle cx="80" cy="80" r="70"></circle>
+        </svg>
+        <div class="number">
+          <h2>95<span>%</span></h2>
         </div>
       </div>
-    </section>
-  </body>
+      <div class="text">HTML</div>
+    </div>
+
+    <div class="card">
+      <div class="percent">
+        <svg viewBox="0 0 160 160">
+          <defs>
+            <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00c6ff" />
+              <stop offset="100%" stop-color="#0072ff" />
+            </linearGradient>
+          </defs>
+          <circle cx="80" cy="80" r="70"></circle>
+          <circle cx="80" cy="80" r="70"></circle>
+        </svg>
+        <div class="number">
+          <h2>85<span>%</span></h2>
+        </div>
+      </div>
+      <div class="text">CSS</div>
+    </div>
+
+    <div class="card">
+      <div class="percent">
+        <svg viewBox="0 0 160 160">
+          <defs>
+            <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#f7971e" />
+              <stop offset="100%" stop-color="#ffd200" />
+            </linearGradient>
+          </defs>
+          <circle cx="80" cy="80" r="70"></circle>
+          <circle cx="80" cy="80" r="70"></circle>
+        </svg>
+        <div class="number">
+          <h2>78<span>%</span></h2>
+        </div>
+      </div>
+      <div class="text">JavaScript</div>
+    </div>
+  </div>
+</body>
+
 </html>
