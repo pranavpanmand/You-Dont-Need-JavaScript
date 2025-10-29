@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflection Text Effect (Multi-Word)</title>
+<style>
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+  }
+
+  .reflect-text {
+    font-size: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    color: #00ffff;
+    display: inline-block;
+  }
+
+  .reflect-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    color: #00ffff;
+    transform: scaleY(-1);
+    opacity: 0.4;
+    filter: blur(1px);
+    background: linear-gradient(to bottom, rgba(246, 250, 250, 0.7), transparent);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <div class="reflect-text" data-text="Reflection Text Effect Example">
+    Reflection Text Effect 
+  </div>
+
+</body>
+</html>
