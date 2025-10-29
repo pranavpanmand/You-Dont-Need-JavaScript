@@ -1,272 +1,93 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to the Login Page</title>
+  <title>Login & Signup Page</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+    :root{
+      --font:#333;
+      --font2:#111;
+      --accent:rgb(255,120,150);
     }
-
-    :root {
-      --font: rgb(57, 57, 57);
-      --font2: rgb(21, 21, 21);
-      --accent: rgb(255, 120, 150);
+    body{
+      background:linear-gradient(to top right,#6d6da3,#ff53ff,#fe788f,#ffc250,#fdfd67);
+      min-height:100vh;display:flex;justify-content:center;align-items:center;
+      padding:40px 10px;
     }
-
-    body {
-      background: linear-gradient(
-        to top right,
-        rgb(109, 109, 163),
-        rgb(255, 83, 255),
-        rgb(254, 120, 143),
-        rgb(255, 194, 80),
-        rgb(253, 253, 103)
-      );
-      min-height: 100vh;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-      overflow-y: auto;
-      padding: 40px 10px; /* prevent overflow on smaller screens */
+    .glass{position:fixed;top:0;left:0;width:100%;height:100%;background:#0003;backdrop-filter:blur(50px);z-index:0;}
+    .box{
+      background:rgba(255,255,255,0.3);backdrop-filter:blur(40px);
+      border-radius:15px;z-index:1;width:100%;max-width:420px;padding:25px 20px;
+      box-shadow:5px 5px 20px rgba(0,0,0,0.3);transition:transform .3s;
     }
-
-    .glass {
-      position: fixed;
-      background-color: black;
-      backdrop-filter: blur(50px);
-      opacity: 0.3;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 0;
+    .box:hover{transform:scale(1.01);}
+    .tabs{display:flex;justify-content:space-between;overflow:hidden;border-radius:10px;margin-bottom:20px;}
+    .tab{
+      flex:1;text-align:center;padding:12px;cursor:pointer;font-weight:500;
+      background:#e3e3e3;color:#111;transition:.4s;
     }
-
-    .box {
-      background: rgba(255, 254, 254, 0.3);
-      backdrop-filter: blur(40px);
-      border-radius: 15px;
-      z-index: 1;
-      width: 100%;
-      max-width: 420px;
-      padding: 25px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      box-shadow: 5px 5px 20px rgba(54, 54, 54, 0.3);
-      transition: transform 0.3s ease;
+    .tab.active{background:#000;color:#fff;}
+    .form{width:100%;overflow:hidden;position:relative;}
+    .form-inner{
+      display:flex;width:200%;transition:transform .6s ease;
     }
-
-    .box:hover {
-      transform: scale(1.01);
+    input[type="radio"]{display:none;}
+    #show-login:checked ~ .form .form-inner{transform:translateX(-50%);}
+    .form-content{width:50%;padding:10px 20px;}
+    .form-content h2{text-align:center;margin-bottom:20px;color:#111;}
+    .form-box{margin-bottom:15px;}
+    .form-box label{display:block;font-size:.9rem;margin-bottom:5px;color:var(--font2);}
+    .form-box input{
+      width:100%;padding:10px;border-radius:8px;border:1px solid var(--font2);
+      transition:.3s;
     }
-
-    .slider {
-      display: flex;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 10px;
-      margin-bottom: 15px;
+    .form-box input:focus{border-color:var(--accent);box-shadow:0 0 5px var(--accent);}
+    .button{
+      width:100%;padding:12px;border-radius:50px;background:#111;color:#fff;
+      border:none;cursor:pointer;transition:.3s;font-weight:500;
     }
-
-    .sign,
-    .login {
-      flex: 1;
-      text-align: center;
-      padding: 12px;
-      font-size: small;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
+    .button:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+    .animate{
+      animation:fadeIn .8s ease forwards;
     }
-
-    .sign {
-      background-color: black;
-      color: rgb(172, 172, 172);
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
-
-    .sign:hover {
-      background-color: var(--accent);
-      color: white;
-    }
-
-    .login {
-      background-color: rgb(227, 227, 227);
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
-
-    .login:hover {
-      background-color: black;
-      color: white;
-    }
-
-    .head {
-      margin: 20px 0;
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: var(--font2);
-      text-align: center;
-    }
-
-    .option {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: 500;
-      font-size: 0.9rem;
-      border: 1px solid var(--font);
-      width: 85%;
-      height: 38px;
-      margin: 8px 0;
-      border-radius: 50px;
-      color: var(--font);
-      background-color: rgba(255, 255, 255, 0.3);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .option:hover {
-      background-color: var(--font);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .divider {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 85%;
-      font-weight: lighter;
-      color: var(--font2);
-      margin: 15px 0;
-    }
-
-    .divider hr {
-      flex: 1;
-      border: none;
-      height: 1px;
-      background-color: var(--font2);
-      margin: 0 10px;
-      opacity: 0.5;
-    }
-
-    .form {
-      display: flex;
-      flex-direction: column;
-      width: 85%;
-      gap: 15px;
-    }
-
-    .form-box {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .form-box label {
-      font-size: 0.85rem;
-      color: var(--font2);
-      margin-bottom: 5px;
-    }
-
-    .form-box input {
-      height: 42px;
-      border-radius: 8px;
-      border: 1px solid var(--font2);
-      padding-left: 10px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      outline: none;
-    }
-
-    .form-box input:hover {
-      border-color: var(--accent);
-    }
-
-    .form-box input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 5px rgba(255, 120, 150, 0.5);
-    }
-
-    .button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 85%;
-      height: 45px;
-      background-color: var(--font);
-      color: white;
-      border-radius: 50px;
-      font-weight: lighter;
-      font-size: 1rem;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 480px) {
-      .box {
-        padding: 20px 15px;
-      }
-
-      .option, .form, .button {
-        width: 95%;
-      }
-
-      .head {
-        font-size: 1.2rem;
-      }
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(20px);}
+      to{opacity:1;transform:translateY(0);}
     }
   </style>
 </head>
 <body>
   <div class="glass"></div>
-  <div class="box">
-    <div class="slider">
-      <span class="sign">Sign Up</span>
-      <span class="login">Login</span>
+  <div class="box animate">
+    <input type="radio" name="toggle" id="show-signup" checked>
+    <input type="radio" name="toggle" id="show-login">
+    <div class="tabs">
+      <label for="show-signup" class="tab active" id="signup-tab">Sign Up</label>
+      <label for="show-login" class="tab" id="login-tab">Login</label>
     </div>
-    <div class="head">Create an Account</div>
-    <div class="option facebook">Continue with Facebook</div>
-    <div class="option google">Continue with Google</div>
-    <div class="divider"><hr /> OR <hr /></div>
     <div class="form">
-      <div class="form-box">
-        <label for="name1">First Name</label>
-        <input type="text" id="name1" placeholder="Enter your first name" />
-      </div>
-      <div class="form-box">
-        <label for="name2">Last Name</label>
-        <input type="text" id="name2" placeholder="Enter your last name" />
-      </div>
-      <div class="form-box">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="example@email.com" />
-      </div>
-      <div class="form-box">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Create a password" />
+      <div class="form-inner">
+        <!-- Signup Form -->
+        <div class="form-content" id="signup">
+          <h2>Create Account</h2>
+          <div class="form-box"><label>First Name</label><input type="text" placeholder="Enter your first name"></div>
+          <div class="form-box"><label>Last Name</label><input type="text" placeholder="Enter your last name"></div>
+          <div class="form-box"><label>Email</label><input type="email" placeholder="example@email.com"></div>
+          <div class="form-box"><label>Password</label><input type="password" placeholder="Create password"></div>
+          <button class="button">Sign Up</button>
+        </div>
+        <!-- Login Form -->
+        <div class="form-content" id="login">
+          <h2>Welcome Back</h2>
+          <div class="form-box"><label>Email</label><input type="email" placeholder="example@email.com"></div>
+          <div class="form-box"><label>Password</label><input type="password" placeholder="Enter password"></div>
+          <button class="button">Login</button>
+        </div>
       </div>
     </div>
-    <div class="button">Sign Up</div>
   </div>
 </body>
 </html>
