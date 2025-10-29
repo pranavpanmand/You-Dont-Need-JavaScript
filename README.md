@@ -117,6 +117,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Tables](#css-tables)
 - [Tabs](#tabs)
 - [MakemyTrip](#mmt)
+- [Text Hover Gallery](#text-hover-gallery)
 - [Text Spoiler Effect](#text-spoiler)
 - [Timeline](#timeline)
 - [Thank You Animation](#thankyou-animation)
@@ -334,6 +335,14 @@ Your browser does not support the video tag.
 <img src="images/badge_design1.png" height="230" title="Demo">
 
 <img src="images/badge_design2.png" height="230" title="Demo">
+
+**[⬆ back to top](#quick-links)**
+
+---
+
+## <a id="text-hover-gallery"></a>Badge
+
+[<img src="images/textHoverGallery.gif" height="230" title="Demo">](./Text%20Hover%20gallery/index.html)
 
 **[⬆ back to top](#quick-links)**
 
