@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Typing Animation - DevToolkit</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #0f172a; 
+      color: #f8fafc;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .typing-container {
+      font-size: 1.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #38bdf8;
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 0.7s step-end infinite alternate;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 23ch; } 
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="typing-container">
+    Welcome to My Page ✨
+  </div>
+</body>
+</html>

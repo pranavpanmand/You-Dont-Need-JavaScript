@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a0000; 
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+.scene {
+  position: relative;
+  width: 300px;
+  height: 420px;
+}
+.ladder {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  transform: translateX(-50%) rotate(2deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px;
+  width: 90px;
+  border-left: 6px solid #4d1e00;
+  border-right: 6px solid #4d1e00;
+}
+.rung {
+  height: 12px;
+  background: #b87333;
+  border-radius: 5px;
+  box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3);
+}
+.stickman {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 70px;
+  background: white;
+  opacity: 0;
+  animation: climb 6s ease-in-out infinite;
+}
+.stickman::before {
+  content: "";
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  border: 2px solid white;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+  animation: headGlow 6s ease-in-out infinite;
+}
+.stickman::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 60px;
+  height: 2px;
+  background: white;
+  transform: translateX(-50%) rotate(25deg);
+  box-shadow:
+    0 25px white,      
+    0 45px white;       
+  animation: limbSwing 1s ease-in-out infinite alternate;
+}
+@keyframes climb {
+  0% { bottom: 60px; opacity: 0; }
+  10% { opacity: 1; }
+  50% { bottom: 300px; opacity: 1; }
+  80% { bottom: 330px; opacity: 1; }
+  100% { bottom: 360px; opacity: 0; }
+}
+@keyframes headGlow {
+  0%, 50% {
+    border-color: white;
+    box-shadow: none;
+  }
+  70% {
+    border-color: #ff0000;
+    box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+  }
+  100% {
+    border-color: #1a0000;
+    box-shadow: none;
+  }
+}
+@keyframes limbSwing {
+  0% {
+    transform: translateX(-50%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(-25deg);
+  }
+}
+
+.horror-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: #ff2e00;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  animation: flicker 2s infinite;
+}
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 10px #ff2e00, 0 0 20px #ff2e00;
+  }
+  20%, 24%, 55% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+}

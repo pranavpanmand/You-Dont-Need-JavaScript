@@ -65,6 +65,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Gradient Animation](#gradient-animation)
 - [Growing Flower](#growing-flower)
 - [Horizontal image slider](#horizontal-image-slider)
+- [Hourglass Sand Timer](#hourglass-sand-timer)
 - [Hover Animation](#hover-animation)
 - [Image Gallery](#image-gallery)
 - [Image Hover Effect]()
@@ -84,6 +85,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Mobile Menu Off Canvas](#mobile-menu-off-canvas)
 - [Modal/Popup](#modalpopup)
 - [Mondrian Composition](#mondrian-composition)
+- [Morph Loader](#morph-loader)
 - [Mouse Tracking](#mouse-tracking)
 - [Multi Step Checkout](#multi-step-checkout)
 - [NavBar](#navbar)
@@ -116,8 +118,10 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Tables](#css-tables)
 - [Tabs](#tabs)
 - [MakemyTrip](#mmt)
+- [Text Hover Gallery](#text-hover-gallery)
 - [Text Spoiler Effect](#text-spoiler)
 - [Timeline](#timeline)
+- [Time Travel](#time-travel)
 - [Thank You Animation](#thankyou-animation)
 - [Toast Notification](#toast-notifications)
 - [Todo List](#todo-list)
@@ -338,6 +342,14 @@ Your browser does not support the video tag.
 
 ---
 
+## <a id="text-hover-gallery"></a>Badge
+
+[<img src="images/textHoverGallery.gif" height="230" title="Demo">](./Text%20Hover%20gallery/index.html)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
 ## <a id="Font"></a>Font-Face (Latin)
 
 [<img src="images/sansfont.png" height="230" title="Demo">](https://yusugomori.com/projects/css-sans/fonts)
@@ -489,6 +501,14 @@ Your browser does not support the video tag.
 
 ---
 
+## <a id="morph-loader"></a>Morph Loader
+
+[<img src="images/morphLoader.gif" height="230" title="Morph Loader Demo">](./MorphLoader/index.html)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
 ## <a id="compassloader"></a>Compass Loader
 
 [<img src="images/CompassLoader.gif" height="230" title="Demo">](<[https://codepen.io/eduardoboucas/pen/BNyKwO](https://codepen.io/Aman-Pathan-the-typescripter/pen/dyaPmrE)>)
@@ -560,6 +580,16 @@ Your browser does not support the video tag.
 
 [<img src="images/tabs.png" height="230" title="Demo 1">](https://codepen.io/llgruff/pen/ZGBxOa)
 [<img src="images/tabs2.png" height="230" title="Demo 2">](https://codepen.io/fusco/pen/Wvzjrm)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
+## <a id="time-travel"></a>Time Travel
+
+[<img src="Time-Travel/preview.png" height="230" title="Time Travel">](Time-Travel/index.html)
+
+A pure CSS time travel timeline that allows you to explore different eras.
 
 **[⬆ back to top](#quick-links)**
 
@@ -1328,10 +1358,24 @@ An interactive resume built entirely using **HTML and CSS** — featuring animat
 </video>
 ]()
 
+## <a id="night-fire-camp"></a>Night fire camp
+
+[<video height="230" width="230" controls> 
+<source src="images/nightfirecamp.mp4" type="video/mp4">
+</video>
+]()
+
+
 **[⬆ back to top](#quick-links)**
 
 ---
 
+
+**[⬆ back to top](#quick-links)**
+
+## <a id="Robot"></a>Carousel
+
+[<img src="images/Robot.png" height="230" title="Robot">](Robot/Robot.html)
 
 **[⬆ back to top](#quick-links)**
 
