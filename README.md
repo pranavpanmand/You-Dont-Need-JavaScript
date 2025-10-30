@@ -65,15 +65,19 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Gradient Animation](#gradient-animation)
 - [Growing Flower](#growing-flower)
 - [Horizontal image slider](#horizontal-image-slider)
+- [Hourglass Sand Timer](#hourglass-sand-timer)
+- [Hover Animation](#hover-animation)
 - [Image Gallery](#image-gallery)
 - [Image Hover Effect]()
 - [Image Comparison Slider](#image-comparison-slider)
 - [Infinite Carousel](#infinite-carousel)
 - [Info on Hover / Popover](#info-on-hover-popover)
+- [Input Text Field](#input-text)
 - [Interactive Resume](#interactive-resume)
 - [Jumping Ball](#jumping-ball)
 - [Light Bulb Animation](#light-bulb-animation)
 - [Lighthouse Scene](#lighthouse-scene)
+- [Loader Diamond Animation](#loader-diamond)
 - [Loaders](#loaders)
 - [Loading_Css_effect](#Loading-Css-effect)
 - [Lego_Loader](#Lego-Loader)
@@ -81,6 +85,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Mobile Menu Off Canvas](#mobile-menu-off-canvas)
 - [Modal/Popup](#modalpopup)
 - [Mondrian Composition](#mondrian-composition)
+- [Morph Loader](#morph-loader)
 - [Mouse Tracking](#mouse-tracking)
 - [Multi Step Checkout](#multi-step-checkout)
 - [NavBar](#navbar)
@@ -92,6 +97,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Parallax Scrolling](#parallax-scrolling)
 - [Pendulum](#pendulum)
 - [Playing Card Animation](#playing-card-animation)
+- [Product Cards](#product-cards)
 - [Profile Cards](#profilecards)
 - [Radial Color Pulsar](#RadialPulsar)
 - [Responsive Counter Showing # of Items That Didn't Fit Screen](#responsive-counter-showing--of-items-that-didnt-fit-screen)
@@ -112,8 +118,10 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Tables](#css-tables)
 - [Tabs](#tabs)
 - [MakemyTrip](#mmt)
+- [Text Hover Gallery](#text-hover-gallery)
 - [Text Spoiler Effect](#text-spoiler)
 - [Timeline](#timeline)
+- [Time Travel](#time-travel)
 - [Thank You Animation](#thankyou-animation)
 - [Toast Notification](#toast-notifications)
 - [Todo List](#todo-list)
@@ -130,6 +138,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Password Strength Checker](#password-strength-checker)
 - [Pricing Table](#pricing-table)
 - [Text Change Animation](#text-change-animaton) 
+- [Glide to Reveal](#glide-to-reveal)
 - **Contribution**
   - [Contributors](#contributors)
   - [Contributing](#contributing)
@@ -334,6 +343,14 @@ Your browser does not support the video tag.
 
 ---
 
+## <a id="text-hover-gallery"></a>Badge
+
+[<img src="images/textHoverGallery.gif" height="230" title="Demo">](./Text%20Hover%20gallery/index.html)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
 ## <a id="Font"></a>Font-Face (Latin)
 
 [<img src="images/sansfont.png" height="230" title="Demo">](https://yusugomori.com/projects/css-sans/fonts)
@@ -485,6 +502,14 @@ Your browser does not support the video tag.
 
 ---
 
+## <a id="morph-loader"></a>Morph Loader
+
+[<img src="images/morphLoader.gif" height="230" title="Morph Loader Demo">](./MorphLoader/index.html)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
 ## <a id="compassloader"></a>Compass Loader
 
 [<img src="images/CompassLoader.gif" height="230" title="Demo">](<[https://codepen.io/eduardoboucas/pen/BNyKwO](https://codepen.io/Aman-Pathan-the-typescripter/pen/dyaPmrE)>)
@@ -556,6 +581,16 @@ Your browser does not support the video tag.
 
 [<img src="images/tabs.png" height="230" title="Demo 1">](https://codepen.io/llgruff/pen/ZGBxOa)
 [<img src="images/tabs2.png" height="230" title="Demo 2">](https://codepen.io/fusco/pen/Wvzjrm)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
+## <a id="time-travel"></a>Time Travel
+
+[<img src="Time-Travel/preview.png" height="230" title="Time Travel">](Time-Travel/index.html)
+
+A pure CSS time travel timeline that allows you to explore different eras.
 
 **[⬆ back to top](#quick-links)**
 
@@ -1305,9 +1340,43 @@ An interactive resume built entirely using **HTML and CSS** — featuring animat
 
 ---
 
+## <a id="Glide to Reveal"></a>Glide to Reveal
+
+[<img src="images/glidetoreveal.png" height="230" title="Glide-to-reveal">](Glide-to-reveal/index.html)
+
+**[⬆ back to top](#quick-links)**
+
+---
+
 ## <a id="rotating-text"></a>Rotating Text
 
 [<img src="images/rotating_text.mp4" height="230" title="Demo">]()
+
+## <a id="input-text"></a>Input Text Field
+
+[<video height="230" width="230" controls> 
+<source src="images/input-text.mp4" type="video/mp4">
+</video>
+]()
+
+## <a id="night-fire-camp"></a>Night fire camp
+
+[<video height="230" width="230" controls> 
+<source src="images/nightfirecamp.mp4" type="video/mp4">
+</video>
+]()
+
+
+**[⬆ back to top](#quick-links)**
+
+---
+
+
+**[⬆ back to top](#quick-links)**
+
+## <a id="Robot"></a>Carousel
+
+[<img src="images/Robot.png" height="230" title="Robot">](Robot/Robot.html)
 
 **[⬆ back to top](#quick-links)**
 

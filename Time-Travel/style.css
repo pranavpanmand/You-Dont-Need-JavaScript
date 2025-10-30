@@ -1,0 +1,293 @@
+:root{
+  --radius:18px;
+  --gap:14px;
+  --trans-dur: 3.2s;
+  --accent:#00ffd1;
+  --muted:#98a0b3;
+  --bg:#f7f8fb;
+  --panel-radius:16px;
+  --ui-bg: rgba(255,255,255,0.6);
+}
+
+/* Reset / layout */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#0b1220;
+}
+
+header{
+  text-align:center;
+  padding:1rem 1.25rem;
+  font-size:1.25rem;
+}
+
+.timeline{
+  display:flex;
+  justify-content:center;
+  gap:var(--gap);
+  padding:0.6rem;
+  flex-wrap:wrap;
+}
+
+/* hide inputs but keep accessibility */
+input[type="radio"]{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+/* label buttons */
+label{
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  padding:0.6rem 1rem;
+  background:var(--ui-bg);
+  border-radius:999px;
+  border:1px solid rgba(11,18,32,0.06);
+  box-shadow: 0 2px 8px rgba(12,18,28,0.04);
+  cursor:pointer;
+  transition:transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s, background .28s;
+  font-weight:600;
+}
+
+label:hover{ transform:translateY(-4px) }
+
+/* active label for the radio immediately before the label */
+/* active label styling: target the label inside .timeline that matches the checked input */
+#ancient:checked ~ .timeline label[for="ancient"],
+#medieval:checked ~ .timeline label[for="medieval"],
+#modern:checked ~ .timeline label[for="modern"],
+#future:checked ~ .timeline label[for="future"]{
+  background: linear-gradient(90deg,#08162e 0%, #0e2a3e 100%);
+  color:var(--accent);
+  transform:translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(6,16,32,0.25);
+}
+
+label[for]{
+  user-select:none;
+}
+
+/* main stage (background + transition layer) */
+main{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:1 1 auto;
+  padding:2.25rem;
+  position:relative;
+  overflow:hidden;
+}
+
+/* transition overlay container (placed between timeline and main in DOM) */
+.transition{position:fixed;inset:0;z-index:100;pointer-events:none}
+.transition .overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  z-index:10;
+  background:rgba(0,0,0,0.2);
+}
+.transition .anim-wrap{display:flex;gap:2rem;align-items:center;justify-content:center}
+
+/* rocket & clock initial hidden states */
+.rocket,.clock{width:120px;height:120px;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(0);}
+.rocket .rocket-body{
+  width: 60px;
+  height: 100px;
+  background: linear-gradient(180deg, #d0d0d0, #f0f0f0);
+  border-radius: 50% 50% 10% 10% / 60% 60% 40% 40%;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.rocket-fin {
+  position: absolute;
+  bottom: 10px;
+  width: 20px;
+  height: 35px;
+  background: #b03a2e;
+  border-radius: 40% 10% 10% 40%;
+}
+
+.rocket-fin-left {
+  left: -15px;
+  transform: rotate(-20deg);
+}
+
+.rocket-fin-right {
+  right: -15px;
+  transform: rotate(20deg);
+}
+
+.rocket-window {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 25px;
+  background: #85c1e9;
+  border-radius: 50%;
+  border: 3px solid #d0d0d0;
+}
+
+.rocket-exhaust {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 40px;
+  background: linear-gradient(180deg, #f7dc6f, #f39c12);
+  border-radius: 0 0 50% 50%;
+  filter: blur(5px);
+  opacity: 0.8;
+}
+
+.clock .clock-face{width:88px;height:88px;border-radius:50%;background:linear-gradient(#fff,#f0f3f8);box-shadow:0 6px 18px rgba(6,16,32,0.12);position:relative;display:flex;align-items:center;justify-content:center}
+.clock .hand{position:absolute;width:2px;background:#111;transform-origin:50% 70%;border-radius:2px}
+.clock .hand.hour{height:18px;top:34px}
+.clock .hand.minute{height:26px;top:28px}
+
+/* animated background pseudo layer */
+main::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:contrast(1.02) saturate(1.02);
+  transition:opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);
+  opacity:0;
+  transform:scale(1.02);
+  z-index:0;
+}
+
+/* soft overlay */
+main::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(3,6,16,0.06));
+  pointer-events:none; z-index:2;
+}
+
+.content{position:relative;z-index:3;max-width:1000px;width:100%;text-align:center;padding:0;border-radius:0;background:transparent;box-shadow:none}
+
+/* show the correct image for each era */
+#ancient:checked ~ main .era-media img#img-ancient{opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+#medieval:checked ~ main .era-media img#img-medieval{opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+#modern:checked ~ main .era-media img#img-modern{opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+#future:checked ~ main .era-media img#img-future{opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+
+/* media area: images show/hidden via opacity and transform */
+.era-media{position:relative;width:100%;height:70vh;display:block;padding:1rem 0;overflow:hidden}
+.era-media img{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  max-width:100%;
+  height:auto;
+  max-height:65vh;
+  object-fit:contain;
+  display:block;
+  margin:0 auto;
+  border-radius:12px;
+  box-shadow:0 8px 28px rgba(6,16,32,0.12);
+  opacity:0;
+  transition: none;
+}
+
+/* text overlay area below image */
+.era-info{padding:1rem 1.25rem}
+.era-title{margin:0 0 .35rem;font-size:clamp(1.25rem,2.2vw,1.6rem)}
+.era-desc{margin:0;color:var(--muted)}
+
+footer{padding:.6rem;text-align:center;font-size:.85rem;color:var(--muted)}
+
+/* era backgrounds (use same images as before but with better crossfade) */
+#ancient:checked ~ main::before{opacity:.22; background-image: linear-gradient(180deg, rgba(242,226,186,0.82), rgba(242,226,186,0.82)), url('ancient.png'); transform:translateY(0); filter:blur(2px) saturate(.95)}
+#medieval:checked ~ main::before{opacity:.22; background-image: linear-gradient(180deg, rgba(43,31,13,0.6), rgba(43,31,13,0.6)), url('medeival.png'); filter:grayscale(.06) contrast(1.03) blur(2px)}
+#modern:checked ~ main::before{opacity:.22; background-image: linear-gradient(180deg, rgba(229,229,229,0.66), rgba(229,229,229,0.66)), url('modern.png'); transform:scale(1.03); filter:blur(2px) saturate(1.02)}
+#future:checked ~ main::before{opacity:.22; background-image: linear-gradient(180deg, rgba(13,12,35,0.58), rgba(13,12,35,0.58)), url('future.png'); filter:hue-rotate(20deg) saturate(1.2) blur(2px)}
+
+/* subtle enter animation for content depending on state */
+#ancient:checked ~ main .content{transform:translateY(0); opacity:1}
+#medieval:checked ~ main .content{transform:translateY(0); opacity:1}
+#modern:checked ~ main .content{transform:translateY(0); opacity:1}
+#future:checked ~ main .content{transform:translateY(0); opacity:1}
+
+/* show the correct image for each era */
+/* delay image reveal until after transition animation completes */
+#ancient:checked ~ .transition .overlay .rocket{animation:rocketFly var(--trans-dur) cubic-bezier(.22,.9,.25,1) forwards}
+#ancient:checked ~ main .era-media img#img-ancient{transition-delay:0s;opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+
+#medieval:checked ~ .transition .overlay .rocket{animation:rocketFly var(--trans-dur) cubic-bezier(.22,.9,.25,1) forwards}
+#medieval:checked ~ main .era-media img#img-medieval{transition-delay:0s;opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+
+#modern:checked ~ .transition .overlay .rocket{animation:rocketFly var(--trans-dur) cubic-bezier(.22,.9,.25,1) forwards}
+#modern:checked ~ main .era-media img#img-modern{transition-delay:0s;opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+
+#future:checked ~ .transition .overlay .rocket{animation:rocketFly var(--trans-dur) cubic-bezier(.22,.9,.25,1) forwards}
+#future:checked ~ main .era-media img#img-future{transition-delay:0s;opacity:1;transform:translate(-50%, -50%) scale(1);filter:none}
+
+/* overlay visibility animation: fade-in, hold, fade-out */
+@keyframes overlayFade{
+  0%{opacity:0}
+  10%{opacity:.95}
+  85%{opacity:.95}
+  100%{opacity:0}
+}
+
+/* clock ticking animation */
+@keyframes clockTick{
+  0%{opacity:0;transform:scale(.9)}
+  8%{opacity:1;transform:scale(1)}
+  20%{transform:scale(1.02)}
+  80%{transform:scale(1.02)}
+  100%{opacity:0;transform:scale(.9)}
+}
+
+/* rocket flight animation */
+@keyframes rocketFly{
+  0%{opacity:0;transform:translateY(60vh) scale(.6) rotate(-15deg)}
+  12%{opacity:1;transform:translateY(30vh) scale(.85) rotate(-8deg)}
+  60%{opacity:1;transform:translateY(-30vh) scale(1.2) rotate(12deg)}
+  100%{opacity:0;transform:translateY(-80vh) scale(1.4) rotate(20deg)}
+}
+
+/* trigger overlay animation when any era is checked */
+@keyframes ancient-kf {}
+@keyframes medieval-kf {}
+@keyframes modern-kf {}
+@keyframes future-kf {}
+
+#ancient:checked ~ .transition .overlay{animation:overlayFade var(--trans-dur) ease forwards, ancient-kf 1s}
+#medieval:checked ~ .transition .overlay{animation:overlayFade var(--trans-dur) ease forwards, medieval-kf 1s}
+#modern:checked ~ .transition .overlay{animation:overlayFade var(--trans-dur) ease forwards, modern-kf 1s}
+#future:checked ~ .transition .overlay{animation:overlayFade var(--trans-dur) ease forwards, future-kf 1s}
+
+main .content{transition:transform .7s cubic-bezier(.2,.9,.2,1), opacity .7s ease; transform:translateY(6px); opacity:1}
+
+/* responsive */
+@media (max-width:760px){
+  .timeline{gap:8px;padding:8px}
+  label{padding:10px 12px;font-size:0.95rem}
+  .content{padding:1.25rem;border-radius:12px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+

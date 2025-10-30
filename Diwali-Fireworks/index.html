@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Diwali Fireworks (HTML + CSS)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        :root{
+            --bg:#000;            /* pure black background */
+            --text:#fff7e6;
+            --ambient: rgba(255,180,80,0.035);
+        }
+
+        html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+        body{
+            background:
+                radial-gradient(1200px 600px at 20% 8%, rgba(90,0,80,0.06) 0%, transparent 12%),
+                linear-gradient(180deg,var(--bg), #050005 60%);
+            color:var(--text);
+            overflow:hidden;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            user-select:none;
+            position:relative;
+        }
+
+        /* top starfield (subtle twinkle) */
+        .stars{
+            position:fixed;inset:0;z-index:0;pointer-events:none;
+            background:
+                radial-gradient(circle at 10% 18%, rgba(255,255,255,0.95) 0.6px, transparent 1px),
+                radial-gradient(circle at 23% 32%, rgba(255,255,255,0.9) 0.6px, transparent 1px),
+                radial-gradient(circle at 40% 12%, rgba(255,255,255,0.8) 0.6px, transparent 1px),
+                radial-gradient(circle at 62% 28%, rgba(255,255,255,0.85) 0.6px, transparent 1px),
+                radial-gradient(circle at 78% 10%, rgba(255,255,255,0.85) 0.6px, transparent 1px),
+                radial-gradient(circle at 85% 40%, rgba(255,255,255,0.9) 0.6px, transparent 1px),
+                radial-gradient(circle at 50% 6%, rgba(255,255,255,0.9) 0.6px, transparent 1px);
+            mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.2) 60%, transparent 100%);
+            animation:twinkle 6s linear infinite;
+            mix-blend-mode:screen;
+        }
+        @keyframes twinkle{
+            0%,100%{opacity:0.9}
+            50%{opacity:0.6}
+        }
+
+        /* pause toggle */
+        .controls{position:fixed;right:12px;bottom:12px;z-index:10;display:flex;gap:10px;align-items:center}
+        #pause{display:none}
+        label.pause{
+            background:#111;color:#fff;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:14px;opacity:0.92;
+            user-select:none;
+        }
+        #pause:checked ~ .sky, #pause:checked ~ .sky * { animation-play-state:paused !important; }
+
+        .overlay{position:relative;z-index:6;text-align:center;padding:2rem;pointer-events:none;mix-blend-mode:screen}
+        h1{margin:0;font-size:clamp(24px,4vw,56px);letter-spacing:1px;color:var(--text);text-shadow:0 10px 30px rgba(255,176,59,0.08)}
+        p{margin:0.5rem 0 0;font-size:clamp(12px,1.6vw,18px);opacity:0.95}
+
+        .sky{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+
+        /* firework base */
+        .firework{
+            position:absolute;
+            bottom:10vh;
+            left:50%;
+            transform:translateX(-50%);
+            width:0;height:0;
+            filter:drop-shadow(0 0 12px rgba(255,200,120,0.06));
+            z-index:2;
+        }
+
+        /* core glow */
+        .firework .core{
+            position:absolute;left:0;top:0;width:8px;height:8px;border-radius:50%;
+            background:var(--color,#FFD166);
+            filter:blur(10px);
+            opacity:0;
+            animation:corePop var(--dur,3s) linear calc(var(--delay,0s) + var(--offset,0s)) infinite;
+            mix-blend-mode:screen;
+        }
+
+        @keyframes corePop{
+            0%{ transform:translateY(0) scale(.2); opacity:0 }
+            18%{ transform:translateY(-8px) scale(.9); opacity:1 }
+            32%{ transform:translateY(-22px) scale(1.2); opacity:1 }
+            100%{ transform:translateY(-22px) scale(.8); opacity:0 }
+        }
+
+        /* each spark */
+        .firework i{
+            --size:3px;
+            display:block;
+            position:absolute;
+            left:0;top:0;
+            width:var(--size);height:var(--size);
+            background: radial-gradient(circle at 30% 30%, #fff 0%, currentColor 25%, transparent 50%);
+            color:var(--color,#FFD166);
+            border-radius:50%;
+            transform-origin:center center;
+            opacity:0;
+            animation:burst var(--dur,3s) cubic-bezier(.2,.9,.2,1) calc(var(--delay,0s) + var(--offset,0s)) infinite;
+            mix-blend-mode:screen;
+            will-change:transform,opacity,box-shadow;
+            box-shadow:0 0 6px currentColor, 0 0 16px currentColor;
+            filter:blur(0.4px);
+        }
+
+        /* tail (longer for realism) */
+        .firework i::after{
+            content:"";
+            position:absolute;left:50%;top:50%;
+            height:1.6px;
+            width:42px;
+            background:linear-gradient(90deg, transparent, currentColor 20%, currentColor 60%, rgba(255,255,255,0.05));
+            transform-origin:left center;
+            transform:translate(-50%,-50%) rotate(0deg) translateX(6px);
+            opacity:0.95;
+            filter:blur(0.8px);
+            border-radius:2px;
+        }
+
+        /* tiny ember flickers */
+        .firework i::before{
+            content:"";
+            position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:50%;
+            transform:translate(-50%,-50%) scale(0.02);
+            background: radial-gradient(circle at 35% 35%, #fff, rgba(255,255,255,0.7) 10%, currentColor 40%, transparent 70%);
+            opacity:0;
+            filter:blur(6px);
+            animation:ember var(--dur,3s) linear calc(var(--delay,0s) + var(--offset,0s)) infinite;
+            mix-blend-mode:screen;
+        }
+
+        @keyframes ember{
+            0%{ transform:translate(-50%,-50%) scale(0.02); opacity:0 }
+            18%{ transform:translate(-50%,-68%) scale(0.75); opacity:1 }
+            40%{ transform:translate(-50%,-90%) scale(0.95); opacity:1 }
+            100%{ transform:translate(-50%,-90%) scale(0.5); opacity:0 }
+        }
+
+        /* main radial burst animation (adds depth and slight gravity/fade) */
+        @keyframes burst{
+            0%{
+                transform: rotateZ(calc(var(--i) * 1deg)) translateY(0) translateZ(0) scale(.2);
+                opacity:0; box-shadow:0 0 4px currentColor;
+            }
+            18%{
+                opacity:1; box-shadow:0 0 10px currentColor, 0 0 24px currentColor;
+            }
+            45%{
+                transform: rotateZ(calc(var(--i) * 1deg)) translateY(calc(-1 * var(--dist,160px))) translateZ(-6px) scale(1);
+                opacity:1; filter:blur(0);
+            }
+            70%{
+                transform: rotateZ(calc(var(--i) * 1deg)) translateY(calc(-1 * calc(var(--dist,160px) - 10px))) translateZ(-12px) scale(.9);
+                opacity:0.7;
+            }
+            100%{
+                transform: rotateZ(calc(var(--i) * 1deg)) translateY(calc(-1 * calc(var(--dist,160px) - 16px))) translateZ(-18px) scale(.6);
+                opacity:0;
+            }
+        }
+
+        /* small variety and performance hints */
+        .firework{will-change:transform}
+        .firework i{will-change:transform,opacity,box-shadow}
+
+        /* fireworks positions and colors (varied) */
+        .f1{left:12%; bottom:18vh; --delay:0s;  --dur:3.6s; --dist:160px; --color:#FFB03B}
+        .f2{left:28%; bottom:24vh; --delay:0.4s; --dur:3.1s; --dist:140px; --color:#FF5E7E}
+        .f3{left:50%; bottom:20vh; --delay:0.9s; --dur:3.2s; --dist:180px; --color:#FFD166}
+        .f4{left:72%; bottom:22vh; --delay:0.6s; --dur:3.4s; --dist:170px; --color:#7C83FD}
+        .f5{left:86%; bottom:20vh; --delay:1.1s; --dur:3.0s; --dist:150px; --color:#6EE7B7}
+        .f6{left:40%; bottom:26vh; --delay:1.7s; --dur:3.8s; --dist:200px; --color:#FF7BAC}
+
+        /* ground glow */
+        .ground{
+            position:fixed;left:0;right:0;bottom:0;height:18vh;
+            background:
+                radial-gradient(60% 40% at 10% 40%, rgba(255,180,80,0.06), transparent 10%),
+                radial-gradient(50% 30% at 85% 60%, rgba(120,80,255,0.03), transparent 12%),
+                linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+            pointer-events:none;z-index:0;
+        }
+
+        .footer{position:fixed;left:12px;bottom:12px;font-size:12px;opacity:0.75;z-index:9;color:#ddd}
+
+        /* small responsiveness tweak */
+        @media (max-width:520px){
+            .firework{bottom:8vh}
+            .ground{height:22vh}
+        }
+
+    </style>
+</head>
+<body>
+    <input id="pause" type="checkbox">
+    <div class="controls">
+        <label for="pause" class="pause">Pause</label>
+    </div>
+
+    <div class="overlay" aria-hidden="true">
+        <h1>Happy Diwali ✨</h1>
+    </div>
+
+    <div class="sky" aria-hidden="true">
+        <div class="stars" aria-hidden="true"></div>
+
+        <!-- each firework contains many <i> sparks with --i for angle -->
+        <!-- f1 (warm golden) -->
+        <div class="firework f1" style="--offset:0s">
+            <div class="core"></div>
+            <!-- 24 particles for fuller burst -->
+            <i style="--i:0;   --dist:160px;"></i><i style="--i:15;  --dist:160px;"></i><i style="--i:30;  --dist:160px;"></i>
+            <i style="--i:45;  --dist:160px;"></i><i style="--i:60;  --dist:160px;"></i><i style="--i:75;  --dist:160px;"></i>
+            <i style="--i:90;  --dist:160px;"></i><i style="--i:105; --dist:160px;"></i><i style="--i:120; --dist:160px;"></i>
+            <i style="--i:135; --dist:160px;"></i><i style="--i:150; --dist:160px;"></i><i style="--i:165; --dist:160px;"></i>
+            <i style="--i:180; --dist:160px;"></i><i style="--i:195; --dist:160px;"></i><i style="--i:210; --dist:160px;"></i>
+            <i style="--i:225; --dist:160px;"></i><i style="--i:240; --dist:160px;"></i><i style="--i:255; --dist:160px;"></i>
+            <i style="--i:270; --dist:160px;"></i><i style="--i:285; --dist:160px;"></i><i style="--i:300; --dist:160px;"></i>
+            <i style="--i:315; --dist:160px;"></i><i style="--i:330; --dist:160px;"></i><i style="--i:345; --dist:160px;"></i>
+        </div>
+
+        <!-- f2 (pink) -->
+        <div class="firework f2" style="--offset:0.2s">
+            <div class="core"></div>
+            <i style="--i:0;  --dist:140px;"></i><i style="--i:12; --dist:140px;"></i><i style="--i:24; --dist:140px;"></i>
+            <i style="--i:36; --dist:140px;"></i><i style="--i:48; --dist:140px;"></i><i style="--i:60; --dist:140px;"></i>
+            <i style="--i:72; --dist:140px;"></i><i style="--i:84; --dist:140px;"></i><i style="--i:96; --dist:140px;"></i>
+            <i style="--i:108;--dist:140px;"></i><i style="--i:120;--dist:140px;"></i><i style="--i:132;--dist:140px;"></i>
+            <i style="--i:144;--dist:140px;"></i><i style="--i:156;--dist:140px;"></i><i style="--i:168;--dist:140px;"></i>
+            <i style="--i:180;--dist:140px;"></i><i style="--i:192;--dist:140px;"></i><i style="--i:204;--dist:140px;"></i>
+            <i style="--i:216;--dist:140px;"></i><i style="--i:228;--dist:140px;"></i><i style="--i:240;--dist:140px;"></i>
+            <i style="--i:252;--dist:140px;"></i><i style="--i:264;--dist:140px;"></i><i style="--i:276;--dist:140px;"></i>
+        </div>
+
+        <!-- f3 (gold large) -->
+        <div class="firework f3" style="--offset:0.5s">
+            <div class="core"></div>
+            <i style="--i:0;  --dist:180px;"></i><i style="--i:10; --dist:180px;"></i><i style="--i:20; --dist:180px;"></i>
+            <i style="--i:30; --dist:180px;"></i><i style="--i:40; --dist:180px;"></i><i style="--i:50; --dist:180px;"></i>
+            <i style="--i:60; --dist:180px;"></i><i style="--i:70; --dist:180px;"></i><i style="--i:80; --dist:180px;"></i>
+            <i style="--i:90; --dist:180px;"></i><i style="--i:100;--dist:180px;"></i><i style="--i:110;--dist:180px;"></i>
+            <i style="--i:120;--dist:180px;"></i><i style="--i:130;--dist:180px;"></i><i style="--i:140;--dist:180px;"></i>
+            <i style="--i:150;--dist:180px;"></i><i style="--i:160;--dist:180px;"></i><i style="--i:170;--dist:180px;"></i>
+            <i style="--i:180;--dist:180px;"></i><i style="--i:190;--dist:180px;"></i><i style="--i:200;--dist:180px;"></i>
+            <i style="--i:210;--dist:180px;"></i><i style="--i:220;--dist:180px;"></i><i style="--i:230;--dist:180px;"></i>
+        </div>
+
+        <!-- f4 (blue) -->
+        <div class="firework f4" style="--offset:0.8s">
+            <div class="core"></div>
+            <i style="--i:0;  --dist:170px;"></i><i style="--i:16; --dist:170px;"></i><i style="--i:32; --dist:170px;"></i>
+            <i style="--i:48; --dist:170px;"></i><i style="--i:64; --dist:170px;"></i><i style="--i:80; --dist:170px;"></i>
+            <i style="--i:96; --dist:170px;"></i><i style="--i:112;--dist:170px;"></i><i style="--i:128;--dist:170px;"></i>
+            <i style="--i:144;--dist:170px;"></i><i style="--i:160;--dist:170px;"></i><i style="--i:176;--dist:170px;"></i>
+            <i style="--i:192;--dist:170px;"></i><i style="--i:208;--dist:170px;"></i><i style="--i:224;--dist:170px;"></i>
+            <i style="--i:240;--dist:170px;"></i><i style="--i:256;--dist:170px;"></i><i style="--i:272;--dist:170px;"></i>
+            <i style="--i:288;--dist:170px;"></i><i style="--i:304;--dist:170px;"></i><i style="--i:320;--dist:170px;"></i>
+            <i style="--i:336;--dist:170px;"></i><i style="--i:352;--dist:170px;"></i>
+        </div>
+
+        <!-- f5 (mint) -->
+        <div class="firework f5" style="--offset:1.1s">
+            <div class="core"></div>
+            <i style="--i:0; --dist:150px;"></i><i style="--i:24;--dist:150px;"></i><i style="--i:48;--dist:150px;"></i>
+            <i style="--i:72;--dist:150px;"></i><i style="--i:96;--dist:150px;"></i><i style="--i:120;--dist:150px;"></i>
+            <i style="--i:144;--dist:150px;"></i><i style="--i:168;--dist:150px;"></i><i style="--i:192;--dist:150px;"></i>
+            <i style="--i:216;--dist:150px;"></i><i style="--i:240;--dist:150px;"></i><i style="--i:264;--dist:150px;"></i>
+        </div>
+
+        <!-- f6 (pink larger) -->
+        <div class="firework f6" style="--offset:1.5s">
+            <div class="core"></div>
+            <i style="--i:0;  --dist:200px;"></i><i style="--i:14; --dist:200px;"></i><i style="--i:28; --dist:200px;"></i>
+            <i style="--i:42; --dist:200px;"></i><i style="--i:56; --dist:200px;"></i><i style="--i:70; --dist:200px;"></i>
+            <i style="--i:84; --dist:200px;"></i><i style="--i:98; --dist:200px;"></i><i style="--i:112;--dist:200px;"></i>
+            <i style="--i:126;--dist:200px;"></i><i style="--i:140;--dist:200px;"></i><i style="--i:154;--dist:200px;"></i>
+            <i style="--i:168;--dist:200px;"></i><i style="--i:182;--dist:200px;"></i><i style="--i:196;--dist:200px;"></i>
+            <i style="--i:210;--dist:200px;"></i><i style="--i:224;--dist:200px;"></i><i style="--i:238;--dist:200px;"></i>
+            <i style="--i:252;--dist:200px;"></i><i style="--i:266;--dist:200px;"></i><i style="--i:280;--dist:200px;"></i>
+            <i style="--i:294;--dist:200px;"></i><i style="--i:308;--dist:200px;"></i><i style="--i:322;--dist:200px;"></i>
+            <i style="--i:336;--dist:200px;"></i>
+        </div>
+
+        <div class="ground" aria-hidden="true"></div>
+    </div>
+</body>
+</html>
