@@ -138,6 +138,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Password Strength Checker](#password-strength-checker)
 - [Pricing Table](#pricing-table)
 - [Glide to Reveal](#glide-to-reveal)
+- [Terminal Animation](#terminal-animation)
 - **Contribution**
   - [Contributors](#contributors)
   - [Contributing](#contributing)
@@ -1378,6 +1379,17 @@ An interactive resume built entirely using **HTML and CSS** — featuring animat
 [<img src="images/Robot.png" height="230" title="Robot">](Robot/Robot.html)
 
 **[⬆ back to top](#quick-links)**
+
+
+---
+
+## <a id="terminal-animation"></a>Terminal Animation
+
+[<img src="./images/Terminal Animation.gif" height="230" title="terminal-animation">](https://github.com/you-dont-need/You-Dont-Need-JavaScript/terminal-animation/index.html)
+
+**[⬆ back to top](#quick-links)**
+
+---
 
 ## Contributors
 
