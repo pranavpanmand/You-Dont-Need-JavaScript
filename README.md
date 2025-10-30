@@ -129,6 +129,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Progress Bar On Scroll](#ProgressOnScroll)
 - [Password Strength Checker](#password-strength-checker)
 - [Pricing Table](#pricing-table)
+- [Text Change Animation](#text-change-animaton) 
 - **Contribution**
   - [Contributors](#contributors)
   - [Contributing](#contributing)
@@ -1309,6 +1310,16 @@ An interactive resume built entirely using **HTML and CSS** — featuring animat
 [<img src="images/rotating_text.mp4" height="230" title="Demo">]()
 
 **[⬆ back to top](#quick-links)**
+
+---
+
+## <a id="text-change-animation"></a>Text Change Animaton
+
+<img src="./images/text-change-animation.gif" height="230" title="Text Change Animation"> (./Text Change Animation/index.html)
+
+**[⬆ back to top](#quick-links)**
+
+---
 
 ## Contributors
 
