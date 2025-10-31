@@ -1,28 +1,265 @@
-<html>
-<head>
-	<title>Color Game</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>	
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Great RGB Guessing Game</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-</head>
-<body>
-	<h1>The Great <span id="color-display">RGB</span> Guessing Game</h1>
-	<div id ="stripe">
-		<button id="reset">New Colors</button>
-		<span id="message"></span>
-		<button class="mode">Easy</button>
-		<button class="mode selected">Hard</button>
-	</div>
-	<div id="container">
-		<div class="square"></div>
-		<div class="square"></div>
-		<div class="square"></div>
-		<div class="square"></div>
-		<div class="square"></div>
-		<div class="square"></div>
-	</div>
+      body {
+        background-color: #232323;
+        font-family: "Raleway", sans-serif;
+        min-height: 100vh;
+      }
 
-	<script type="text/javascript" src="script.js"></script>
-<!-- 	<script type="text/javascript" src="colorGame.js"></script>
- --></body>
+      h1 {
+        color: white;
+        background-color: #2c8e99;
+        font-size: 3.5em;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        padding: 20px 10px;
+      }
+
+      #color-display {
+        display: block;
+        font-size: 2.5em;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        background-color: #1a6b73;
+        padding: 20px 10px;
+        margin: 0;
+      }
+
+      /* Toggle RGB display based on mode */
+      .easy-rgb,
+      .hard-rgb {
+        display: none;
+      }
+
+      #hardMode:checked ~ h1 ~ #color-display .hard-rgb {
+        display: inline;
+      }
+
+      #easyMode:checked ~ h1 ~ #color-display .easy-rgb {
+        display: inline;
+      }
+
+      /* Hide radio buttons */
+      input[type="radio"] {
+        display: none;
+      }
+
+      #stripe {
+        background: white;
+        padding: 15px 0;
+        text-align: center;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      #message {
+        text-transform: uppercase;
+        color: #2c8e99;
+        font-size: 1.5em;
+        font-weight: bold;
+        min-width: 150px;
+      }
+
+      label {
+        outline: none;
+        color: #2c8e99;
+        font-family: "Raleway", sans-serif;
+        text-transform: uppercase;
+        font-size: 1.5em;
+        background-color: white;
+        padding: 10px 20px;
+        border: 2px solid #2c8e99;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 5px;
+        display: inline-block;
+      }
+
+      label:hover {
+        background-color: #2c8e99;
+        color: white;
+      }
+
+      /* Selected state for mode buttons */
+      #easyMode:checked ~ #stripe label[for="easyMode"],
+      #hardMode:checked ~ #stripe label[for="hardMode"] {
+        background-color: #2c8e99;
+        color: white;
+      }
+
+      #container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .square {
+        background-color: rgb(255, 127, 80);
+        aspect-ratio: 1;
+        border-radius: 20%;
+        transition: all 0.5s;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .square:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Different colors for the squares in HARD mode */
+      .square:nth-child(1) {
+        background-color: rgb(255, 127, 80);
+      }
+      .square:nth-child(2) {
+        background-color: rgb(100, 180, 220);
+      }
+      .square:nth-child(3) {
+        background-color: rgb(255, 205, 100);
+      }
+      .square:nth-child(4) {
+        background-color: rgb(180, 100, 200);
+      }
+      .square:nth-child(5) {
+        background-color: rgb(120, 200, 150);
+      }
+      .square:nth-child(6) {
+        background-color: rgb(220, 120, 180);
+      }
+
+      /* Different colors for the squares in EASY mode */
+      #easyMode:checked ~ #container .square:nth-child(1) {
+        background-color: rgb(100, 220, 150);
+      }
+      #easyMode:checked ~ #container .square:nth-child(2) {
+        background-color: rgb(255, 100, 150);
+      }
+      #easyMode:checked ~ #container .square:nth-child(3) {
+        background-color: rgb(150, 150, 255);
+      }
+
+      /* Hide last 3 squares in easy mode */
+      #easyMode:checked ~ #container .square:nth-child(4),
+      #easyMode:checked ~ #container .square:nth-child(5),
+      #easyMode:checked ~ #container .square:nth-child(6) {
+        display: none;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5em;
+          padding: 15px 10px;
+        }
+
+        #color-display {
+          font-size: 2em;
+          padding: 15px 10px;
+        }
+
+        label {
+          font-size: 1.2em;
+          padding: 8px 15px;
+        }
+
+        #message {
+          font-size: 1.2em;
+          min-width: 120px;
+        }
+
+        #container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+          margin: 30px auto;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.8em;
+          padding: 12px 10px;
+        }
+
+        #color-display {
+          font-size: 1.5em;
+          padding: 12px 10px;
+        }
+
+        label {
+          font-size: 1em;
+          padding: 6px 12px;
+        }
+
+        #message {
+          font-size: 1em;
+          width: 100%;
+          min-width: 0;
+        }
+
+        #stripe {
+          padding: 10px 0;
+          gap: 10px;
+        }
+
+        #container {
+          gap: 10px;
+          margin: 20px auto;
+          padding: 0 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hidden radio buttons for mode switching -->
+    <input type="radio" name="mode" id="easyMode" />
+    <input type="radio" name="mode" id="hardMode" checked />
+
+    <h1>The Great RGB Guessing Game</h1>
+
+    <div id="color-display">
+      <span class="hard-rgb">RGB(255, 127, 80)</span>
+      <span class="easy-rgb">RGB(100, 220, 150)</span>
+    </div>
+
+    <div id="stripe">
+      <span id="message">Pick a Color!</span>
+      <label for="easyMode">Easy</label>
+      <label for="hardMode">Hard</label>
+    </div>
+
+    <div id="container">
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+    </div>
+  </body>
 </html>
