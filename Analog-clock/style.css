@@ -75,6 +75,8 @@
             border: 3px solid var(--border-color);
             z-index: 10;
             border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+
         }
 
         .black-clock .hand {
@@ -160,6 +162,8 @@
             border-radius: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
+            animation: pulse 2s ease-in-out infinite;
+
         }
 
         .white-clock .hand {
@@ -225,3 +229,12 @@
             .black-clock .minute { height: calc(300px * 0.35); }
             .black-clock .second { height: calc(300px * 0.4); }
         }
+        @keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
