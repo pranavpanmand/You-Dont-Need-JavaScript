@@ -139,6 +139,7 @@ Please be aware that the demos may exhibit significant accessibility issues, suc
 - [Pricing Table](#pricing-table)
 - [Text Change Animation](#text-change-animaton) 
 - [Glide to Reveal](#glide-to-reveal)
+- [Terminal Animation](#terminal-animation)
 - **Contribution**
   - [Contributors](#contributors)
   - [Contributing](#contributing)
@@ -1379,6 +1380,12 @@ An interactive resume built entirely using **HTML and CSS** — featuring animat
 
 **[⬆ back to top](#quick-links)**
 
+
+---
+
+## <a id="terminal-animation"></a>Terminal Animation
+
+[<img src="./images/Terminal Animation.gif" height="230" title="terminal-animation">](https://github.com/you-dont-need/You-Dont-Need-JavaScript/terminal-animation/index.html)
 ---
 
 ## <a id="text-change-animation"></a>Text Change Animaton
