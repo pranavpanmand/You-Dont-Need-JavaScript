@@ -136,11 +136,7 @@ input[type="password"]::placeholder {
 }
 
 /* Strength levels with solid colors */
-input:not(:placeholder-shown):not(:valid):not(:invalid) ~ .strength {
-  background: #ffe0e0;
-}
-
-input:invalid:not(:placeholder-shown) ~ .strength {
+input:focus:invalid ~ .strength {
   background: #fff8e1;
 }
 
@@ -161,11 +157,7 @@ input:valid ~ .strength {
 }
 
 /* Optional */
-input:not(:placeholder-shown):not(:valid):not(:invalid) ~ .strength::after {
-  background: #f57c00;
-}
-
-input:invalid:not(:placeholder-shown) ~ .strength::after {
+input:focus:invalid ~ .strength::after {
   background: #d32f2f;
 }
 
@@ -174,7 +166,7 @@ input:valid ~ .strength::after {
 }
 
 /* Trigger animation when password is being typed */
-input:not(:placeholder-shown) ~ .strength::after {
+input:focus ~ .strength::after {
   transform: scaleX(1);
 }
 
@@ -189,12 +181,7 @@ input:not(:placeholder-shown) ~ .strength::after {
   transition: opacity 0.3s ease;
 }
 
-input:not(:placeholder-shown):not(:valid):not(:invalid) ~ .strength-text {
-  opacity: 1;
-  color: #d32f2f;
-}
-
-input:invalid:not(:placeholder-shown) ~ .strength-text {
+input:focus:invalid ~ .strength-text {
   opacity: 1;
   color: #f57c00;
 }
